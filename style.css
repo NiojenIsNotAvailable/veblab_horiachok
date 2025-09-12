@@ -1,0 +1,712 @@
+/* ========================= VARIABLES ========================= */
+:root {
+    --accent: #ff7d64;
+    --accent-dark: #e15c46;
+    --ink: #222;
+    --muted: #666;
+    --line: #cfcfcf;
+    --bg: #eef1f4;
+    --white: #fff;
+}
+
+/* ========================= GLOBAL RESET ========================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+}
+
+/* ========================= APP WRAPPER ========================= */
+.app {
+    max-width: 1180px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 24px 32px 28px;
+    box-shadow:
+        -18px 0 36px -18px rgba(0, 0, 0, 0.15),
+        18px 0 36px -18px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+}
+
+/* ========================= HEADER ========================= */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.brand {
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-size: 44px;
+    color: #fff;
+    /* білий текст */
+    text-shadow:
+        -2px -2px 0 var(--accent),
+        /* помаранчева тінь угору-ліворуч */
+        2px 2px 0 #000;
+    /* чорна тінь вниз-праворуч */
+    line-height: 1;
+}
+
+
+
+
+/* Search */
+.searchbar {
+    display: flex;
+    gap: 10px;
+    min-width: 420px;
+}
+
+.searchbar input[type="search"] {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: border 0.2s ease;
+}
+
+.searchbar input[type="search"]:focus {
+    border-color: var(--accent);
+}
+
+/* ========================= BUTTONS ========================= */
+button,
+.add-btn,
+.searchbar button,
+.popup-content button[type="submit"] {
+    border: 2px solid var(--accent);
+    background: var(--white);
+    color: var(--accent);
+    font-weight: 700;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: capitalize;
+    border-radius: 0;
+}
+
+button:hover,
+.add-btn:hover,
+.searchbar button:hover,
+.popup-content button[type="submit"]:hover {
+    background: var(--accent);
+    color: var(--white);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* ========================= NAVIGATION ========================= */
+.mainnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.menu {
+    display: flex;
+    gap: 18px;
+    list-style: none;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.menu a:hover {
+    color: var(--accent-dark);
+    text-decoration: underline;
+}
+
+/* Divider */
+.divider {
+    margin: 40px auto;
+    height: 1px;
+    width: 33%;
+    background: var(--line);
+}
+
+/* ========================= SECTIONS ========================= */
+.section {
+    margin-top: 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0 28px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+/* ========================= FILTERS ========================= */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 24px;
+    margin-bottom: 24px;
+}
+
+.filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    position: relative;
+}
+
+.filter select,
+.filter input[type="number"] {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    background: var(--white);
+    border-radius: 6px;
+}
+
+.filter:not(:last-child)::after {
+    content: "|";
+    color: #aaa;
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ========================= CARDS GRID ========================= */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 28px;
+}
+
+.teacher-card {
+    text-align: center;
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--white);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.teacher-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.teacher-card:hover .name {
+    color: var(--accent);
+}
+
+/* Avatar */
+.avatar-wrap {
+    display: grid;
+    place-items: center;
+    margin: 0 auto 10px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    overflow: hidden;
+    background: var(--white);
+    transition: border 0.3s ease;
+}
+
+.avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.teacher-card:hover .avatar-wrap img {
+    transform: scale(1.05);
+}
+
+/* Teacher popup photo — rectangular */
+.teacher-card-details .details-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--line);
+}
+.teacher-card-details .details-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+.avatar.initials {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--accent);
+}
+
+/* Teacher info */
+.name {
+    margin: 8px 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.meta {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* ========================= TABLE ========================= */
+.table-wrap {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.clean-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.clean-table thead tr {
+    background: #f5f5f5;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+    /* тонка сіра лінія під усім thead */
+}
+
+.clean-table th,
+.clean-table td {
+    text-align: left;
+    padding: 14px 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.clean-table th.active {
+    background: #f0f0f0;
+    border-bottom: 3px solid #000;
+    /* товста чорна лінія під активним */
+}
+
+.clean-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.clean-table tbody tr:hover {
+    background: #fdf1ef;
+}
+
+.clean-table th.active {
+    background: #f0f0f0;
+    border-bottom: 2px solid #000;
+    /* чорна лінія */
+}
+
+/* Sorting arrows */
+.clean-table th.sort-asc::after {
+    content: "▲";
+    font-size: 12px;
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+    /* чорна стрілка */
+}
+
+.clean-table th.sort-desc::after {
+    content: "▼";
+    font-size: 12px;
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+    /* чорна стрілка */
+}
+
+
+/* ========================= PAGINATION ========================= */
+.pagination {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0 6px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pagination a:hover {
+    color: var(--accent);
+    background: rgba(255, 125, 100, 0.1);
+}
+
+/* ========================= SLIDER ========================= */
+.slider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider-viewport {
+    overflow: hidden;
+    flex: 1;
+}
+
+.slider-track {
+    display: flex;
+    gap: 24px;
+}
+
+.slider-card {
+    min-width: 200px;
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.slider .avatar-wrap {
+    width: 100px;
+    height: 100px;
+}
+
+/* ========================= FOOTER ========================= */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.footer nav {
+    display: flex;
+    gap: 16px;
+}
+
+.footer nav a {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.footer nav a:hover {
+    color: var(--accent);
+}
+
+/* ========================= POPUPS ========================= */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 1000;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: var(--white);
+    padding: 28px 24px;
+    border-radius: 12px;
+    width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, .25);
+}
+
+.popup-content h2 {
+    margin: 0 0 16px 0;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.popup-content .close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* ========================= ADD TEACHER FORM ========================= */
+.form-add {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-add label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    gap: 4px;
+}
+
+.form-add input,
+.form-add select,
+.form-add textarea {
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--white);
+    transition: border 0.2s ease;
+}
+
+.form-add input:focus,
+.form-add select:focus,
+.form-add textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.form-add button[type="submit"] {
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-sex {
+    display: flex;
+    gap: 20px;
+    border: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.form-sex legend {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.form-sex label {
+    font-weight: 400;
+}
+
+/* ========================= TEACHER DETAILS POPUP ========================= */
+.teacher-popup {
+    max-width: 700px;
+    border-radius: 0px;
+    overflow: hidden; /* щоб header і тіло мали однакові кути */
+    background: var(--white);
+    box-shadow: 0 16px 48px rgba(0,0,0,.25);
+    padding: 0; /* прибрали падінги */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header із заголовком і хрестиком */
+.popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #444;
+    color: #fff;
+    padding: 10px 16px;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.popup-header .close {
+    font-size: 22px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Основна частина */
+.teacher-card-details {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 24px; /* падінги тепер тут */
+}
+
+.teacher-card-details .details-avatar.large {
+    width: 180px;
+    height: 180px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.teacher-card-details .details-avatar.large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.teacher-card-details .details-text {
+    flex: 1;
+}
+
+/* Рядок з ім'ям і зіркою */
+.details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.details-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Спеціальність і решта інфи */
+.teacher-card-details .details-specialty {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.teacher-card-details .details-country,
+.teacher-card-details .details-age,
+.teacher-card-details .details-gender,
+.teacher-card-details .details-email,
+.teacher-card-details .details-phone {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.teacher-card-details .details-email a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* Зірочка */
+.fav-toggle {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.fav-toggle:hover {
+    transform: scale(1.1);
+}
+
+.fav-toggle[aria-pressed="true"] {
+    color: gold; /* заливка */
+}
+
+.fav-toggle[aria-pressed="false"] {
+    color: transparent;               /* порожня */
+    -webkit-text-stroke: 1px #888;    /* сірий контур */
+    text-stroke: 1px #888;
+}
+
+/* Notes */
+.teacher-extra {
+    border-top: 1px solid var(--line);
+    padding: 12px 24px; /* падінги для блоку нотаток */
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+
+
+
+/* ========================= RESPONSIVE ========================= */
+@media (max-width: 768px) {
+    .topbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .searchbar {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .brand {
+        font-size: 36px;
+    }
+
+    .mainnav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .avatar-wrap {
+        width: 100px;
+        height: 100px;
+    }
+}

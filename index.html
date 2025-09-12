@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teachinder</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="app">
+        <!-- Top row: Logo + Search -->
+        <header class="topbar">
+            <h1 class="brand">Teachinder</h1>
+            <form class="searchbar" role="search">
+                <input type="search" placeholder="Name, note or age to search" aria-label="Search" />
+                <button type="submit">Search</button>
+            </form>
+        </header>
+
+        <!-- Nav row: menu + Add teacher -->
+        <nav class="mainnav">
+            <ul class="menu">
+                <li><a href="#top-teachers">Teachers</a></li>
+                <li><a href="#statistics">Statistics</a></li>
+                <li><a href="#favorites">Favorites</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <button id="openAddTeacher" class="add-btn">Add teacher</button>
+        </nav>
+
+        <div class="divider"></div>
+
+        <!-- Top Teachers -->
+        <main>
+            <section id="top-teachers" class="section">
+                <h2 class="section-title">Top Teachers</h2>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <label class="filter">
+                        <span>Age</span>
+                        <select>
+                            <option selected>18–31</option>
+                            <option>32–50</option>
+                            <option>51+</option>
+                        </select>
+                    </label>
+                    <label class="filter">
+                        <span>Region</span>
+                        <select>
+                            <option selected>Europe</option>
+                            <option>Asia</option>
+                            <option>Americas</option>
+                            <option>Africa</option>
+                            <option>Oceania</option>
+                        </select>
+                    </label>
+                    <label class="filter">
+                        <span>Sex</span>
+                        <select>
+                            <option selected>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </label>
+                    <label class="filter check">
+                        <input type="checkbox" />
+                        <span>only with photo</span>
+                    </label>
+                    <label class="filter check">
+                        <input type="checkbox" />
+                        <span>only favorites</span>
+                    </label>
+                </div>
+
+                <!-- Cards grid: 5 per row on wide screens -->
+                <div class="cards-grid">
+                    <!-- Приклад із фото -->
+                    <article class="teacher-card" data-id="t1" data-first="Ihor" data-last="Tkachuk"
+                        data-specialty="Chemistry" data-country="Ukraine" data-has-photo="true">
+                        <div class="avatar-wrap">
+                            <img src="assets/image1.jpg" alt="Ihor Tkachuk" />
+                        </div>
+                        <h3 class="name">
+                            <span class="first">Ihor</span>
+                            <span class="last">Tkachuk</span>
+                        </h3>
+                        <div class="meta">
+                            <div class="specialty">Chemistry</div>
+                            <div class="country">Ukraine</div>
+                        </div>
+                    </article>
+
+                    <!-- Приклад БЕЗ фото (ініціали) -->
+                    <article class="teacher-card" data-id="t2" data-first="Anna" data-last="Muzychuk"
+                        data-specialty="Mathematics" data-country="Ukraine" data-has-photo="false">
+                        <div class="avatar-wrap">
+                            <div class="avatar initials">A.M</div>
+                        </div>
+                        <h3 class="name">
+                            <span class="first">Anna</span>
+                            <span class="last">Muzychuk</span>
+                        </h3>
+                        <div class="meta">
+                            <div class="specialty">Mathematics</div>
+                            <div class="country">Ukraine</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t3" data-first="Floor" data-last="Jansen"
+                        data-specialty="Vocal" data-country="Denmark" data-has-photo="true">
+                        <div class="avatar-wrap">
+                            <img src="assets/image1.jpg" alt="Floor Jansen" />
+                        </div>
+                        <h3 class="name">
+                            <span class="first">Floor</span>
+                            <span class="last">Jansen</span>
+                        </h3>
+                        <div class="meta">
+                            <div class="specialty">Vocal</div>
+                            <div class="country">Denmark</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t4" data-first="Daisy" data-last="Alexander"
+                        data-specialty="Chemistry" data-country="Vietnam" data-has-photo="false">
+                        <div class="avatar-wrap">
+                            <div class="avatar initials">D.A</div>
+                        </div>
+                        <h3 class="name">
+                            <span class="first">Daisy</span>
+                            <span class="last">Alexander</span>
+                        </h3>
+                        <div class="meta">
+                            <div class="specialty">Chemistry</div>
+                            <div class="country">Vietnam</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t5" data-first="Oleksii" data-last="Petryk"
+                        data-specialty="Physics" data-country="Ukraine" data-has-photo="true">
+                        <div class="avatar-wrap">
+                            <img src="assets/image2.jpg" alt="Oleksii Petryk" />
+                        </div>
+                        <h3 class="name">
+                            <span class="first">Oleksii</span>
+                            <span class="last">Petryk</span>
+                        </h3>
+                        <div class="meta">
+                            <div class="specialty">Physics</div>
+                            <div class="country">Ukraine</div>
+                        </div>
+                    </article>
+
+                    <!-- Ще кілька, щоб було 10 (2 ряди по 5) -->
+                    <article class="teacher-card" data-id="t6" data-first="Maria" data-last="Larsen"
+                        data-specialty="Biology" data-country="Norway" data-has-photo="true">
+                        <div class="avatar-wrap">
+                            <img src="assets/image3.jpg" alt="Maria Larsen" />
+                        </div>
+                        <h3 class="name"><span class="first">Maria</span><span class="last">Larsen</span></h3>
+                        <div class="meta">
+                            <div class="specialty">Biology</div>
+                            <div class="country">Norway</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t7" data-first="Ken" data-last="Watanabe"
+                        data-specialty="History" data-country="Japan" data-has-photo="false">
+                        <div class="avatar-wrap">
+                            <div class="avatar initials">K.W</div>
+                        </div>
+                        <h3 class="name"><span class="first">Ken</span><span class="last">Watanabe</span></h3>
+                        <div class="meta">
+                            <div class="specialty">History</div>
+                            <div class="country">Japan</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t8" data-first="Renee" data-last="Carter"
+                        data-specialty="Art" data-country="USA" data-has-photo="true">
+                        <div class="avatar-wrap">
+                            <img src="assets/image4.jpg" alt="Renee Carter" />
+                        </div>
+                        <h3 class="name"><span class="first">Renee</span><span class="last">Carter</span></h3>
+                        <div class="meta">
+                            <div class="specialty">Art</div>
+                            <div class="country">USA</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t9" data-first="Aisha" data-last="Khan"
+                        data-specialty="English" data-country="Pakistan" data-has-photo="false">
+                        <div class="avatar-wrap">
+                            <div class="avatar initials">A.K</div>
+                        </div>
+                        <h3 class="name"><span class="first">Aisha</span><span class="last">Khan</span></h3>
+                        <div class="meta">
+                            <div class="specialty">English</div>
+                            <div class="country">Pakistan</div>
+                        </div>
+                    </article>
+
+                    <article class="teacher-card" data-id="t10" data-first="Luca" data-last="Bianchi"
+                        data-specialty="Italian" data-country="Italy" data-has-photo="true">
+                        <div class="avatar-wrap">
+                            <img src="assets/image5.jpg" alt="Luca Bianchi" />
+                        </div>
+                        <h3 class="name"><span class="first">Luca</span><span class="last">Bianchi</span></h3>
+                        <div class="meta">
+                            <div class="specialty">Italian</div>
+                            <div class="country">Italy</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Statistics -->
+            <section id="statistics" class="section">
+                <h2 class="section-title">Statistics</h2>
+                <div class="table-wrap">
+                    <table class="clean-table">
+                        <thead>
+                            <tr>
+                                <th data-key="name">Name</th>
+                                <th data-key="specialty">Specialty</th>
+                                <th data-key="age">Age</th>
+                                <th data-key="gender">Gender</th>
+                                <th data-key="country">Nationality</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="statsBody">
+                            <tr>
+                                <td>Daisy Alexander</td>
+                                <td>Chemistry</td>
+                                <td>28</td>
+                                <td>Female</td>
+                                <td>Vietnam</td>
+                            </tr>
+                            <tr>
+                                <td>Ihor Tkachuk</td>
+                                <td>Chemistry</td>
+                                <td>31</td>
+                                <td>Male</td>
+                                <td>Ukraine</td>
+                            </tr>
+                            <tr>
+                                <td>Anna Muzychuk</td>
+                                <td>Mathematics</td>
+                                <td>30</td>
+                                <td>Female</td>
+                                <td>Ukraine</td>
+                            </tr>
+                            <tr>
+                                <td>Ken Watanabe</td>
+                                <td>History</td>
+                                <td>45</td>
+                                <td>Male</td>
+                                <td>Japan</td>
+                            </tr>
+                            <tr>
+                                <td>Renee Carter</td>
+                                <td>Art</td>
+                                <td>26</td>
+                                <td>Female</td>
+                                <td>USA</td>
+                            </tr>
+                            <tr>
+                                <td>Maria Larsen</td>
+                                <td>Biology</td>
+                                <td>34</td>
+                                <td>Female</td>
+                                <td>Norway</td>
+                            </tr>
+                            <tr>
+                                <td>Luca Bianchi</td>
+                                <td>Italian</td>
+                                <td>39</td>
+                                <td>Male</td>
+                                <td>Italy</td>
+                            </tr>
+                            <tr>
+                                <td>Aisha Khan</td>
+                                <td>English</td>
+                                <td>29</td>
+                                <td>Female</td>
+                                <td>Pakistan</td>
+                            </tr>
+                            <tr>
+                                <td>Floor Jansen</td>
+                                <td>Vocal</td>
+                                <td>43</td>
+                                <td>Female</td>
+                                <td>Denmark</td>
+                            </tr>
+                            <tr>
+                                <td>Oleksii Petryk</td>
+                                <td>Physics</td>
+                                <td>36</td>
+                                <td>Male</td>
+                                <td>Ukraine</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="page">1</a>
+                    <a href="#" class="page">2</a>
+                    <span class="dots">...</span>
+                    <a href="#" class="page page-last">Last</a>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Favorites slider -->
+            <section id="favorites" class="section">
+                <h2 class="section-title">Favorites</h2>
+
+                <div class="slider">
+                    <button class="slider-btn prev" aria-label="Previous">‹</button>
+                    <div class="slider-viewport">
+                        <div class="slider-track" id="favoritesTrack">
+                            <!-- Динамічно з’являтимуться картки улюблених -->
+                        </div>
+                    </div>
+                    <button class="slider-btn next" aria-label="Next">›</button>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="about" class="section">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ac risus ut nunc interdum
+                    condimentum. Sed eget iaculis nisl. Praesent id dui id lorem dignissim pretium.
+                </p>
+            </section>
+        </main>
+
+        <!-- Footer row: menu + Add teacher -->
+        <footer class="footer">
+            <nav aria-label="Footer">
+                <a href="#top-teachers">Teachers</a>
+                <a href="#statistics">Statistics</a>
+                <a href="#favorites">Favorites</a>
+                <a href="#about">About</a>
+            </nav>
+            <button class="add-btn" id="openAddTeacherFooter">Add teacher</button>
+        </footer>
+    </div>
+
+    <!-- POPUP: Add Teacher -->
+    <div id="popupAddTeacher" class="popup hidden" aria-hidden="true">
+        <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="addTeacherTitle">
+            <button class="close" aria-label="Close">&times;</button>
+            <h2 id="addTeacherTitle">Add Teacher</h2>
+            <form id="addTeacherForm" class="form-add">
+
+                <!-- Name -->
+                <label>
+                    Name
+                    <input name="first" type="text" placeholder="Enter name" required>
+                </label>
+
+                <!-- Specialty -->
+                <label>
+                    Specialty
+                    <select name="specialty" required>
+                        <option>Mathematics</option>
+                        <option>Chemistry</option>
+                        <option>Physics</option>
+                        <option>Biology</option>
+                        <option>History</option>
+                        <option>English</option>
+                        <option>Art</option>
+                        <option>Computer Science</option>
+                    </select>
+                </label>
+
+                <!-- Two columns -->
+                <div class="form-row">
+                    <div class="col">
+                        <label>
+                            Country
+                            <input name="country" type="text" required>
+                        </label>
+                        <label>
+                            Email
+                            <input name="email" type="email" placeholder="teacher@example.com">
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            City
+                            <input name="city" type="text">
+                        </label>
+                        <label>
+                            Phone
+                            <input name="phone" type="tel" placeholder="+380...">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Date of birth -->
+                <label>
+                    Date of birth
+                    <input name="birth" type="date">
+                </label>
+
+                <!-- Sex -->
+                <fieldset class="form-sex">
+                    <legend>Sex</legend>
+                    <label><input type="radio" name="gender" value="Male"> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                </fieldset>
+
+                <!-- Background color -->
+                <label>
+                    Background color
+                    <input name="bgcolor" type="color" value="#ffffff">
+                </label>
+
+                <!-- Notes -->
+                <label>
+                    Notes (optional)
+                    <textarea name="notes" rows="3"></textarea>
+                </label>
+
+                <!-- Submit -->
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- POPUP: Teacher Info -->
+    <div id="popupTeacher" class="popup hidden">
+        <div class="popup-content teacher-popup">
+            <!-- Header -->
+            <div class="popup-header">
+                <h3>Teacher Info</h3>
+                <button class="close">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <div class="teacher-card-details">
+                <div class="details-avatar large"></div>
+                <div class="details-text">
+                    <div class="details-header">
+                        <h2 class="details-name"></h2>
+                        <button class="fav-toggle" aria-pressed="false" title="Add to favorites">★</button>
+                    </div>
+                    <div class="details-specialty"></div>
+                    <div class="details-country"></div>
+                    <div class="details-age"></div>
+                    <div class="details-gender"></div>
+                    <div class="details-email"></div>
+                    <div class="details-phone"></div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="teacher-extra">
+                <p class="details-notes"></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
