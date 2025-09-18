@@ -676,6 +676,18 @@ button:active {
     color: var(--ink);
 }
 
+/* Для Teacher Info popup */
+.teacher-popup .popup-header .close {
+    position: static;   /* щоб кнопка йшла по flex */
+    margin-left: auto;  /* відсуває хрестик вправо */
+    font-size: 22px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+
 
 
 
