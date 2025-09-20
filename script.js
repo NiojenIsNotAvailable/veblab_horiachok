@@ -144,9 +144,29 @@ document.addEventListener("DOMContentLoaded", () => {
             bg_color: `#${Math.floor(Math.random() * 16777215).toString(16)}`
         }));
     }
-    function validateUser(u) {
-        return typeof u.age === "number" && /\S+@\S+\.\S+/.test(u.email);
-    }
+   function validateUser(u) {
+    const startsWithCapital = str => typeof str === "string" && /^[A-ZА-ЯІЇЄ]/.test(str);
+
+    return (
+        // 1. uppercase
+        startsWithCapital(u.full_name) &&
+        startsWithCapital(u.gender) &&
+        (u.note == null || startsWithCapital(u.note)) && // if empty
+        startsWithCapital(u.state) &&
+        startsWithCapital(u.city) &&
+        startsWithCapital(u.country) &&
+
+        // 2. Age
+        typeof u.age === "number" && u.age > 0 && u.age < 120 &&
+
+        // 3. Email
+        /\S+@\S+\.\S+/.test(u.email) &&
+
+        // 4. phone
+        /^\+?[0-9\s-]{6,20}$/.test(u.phone || "")
+    );
+}
+
     function filterUsers(params = {}) {
         return teachers.filter(u =>
             (!params.country || u.country === params.country) &&
@@ -174,6 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return total === 0 ? 0 : Math.round((matched / total) * 100);
     }
 
+
+    
     // ----- RENDER -----
     function renderTeachers(list = teachers) {
         const grid = document.querySelector(".cards-grid");

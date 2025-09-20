@@ -57,12 +57,9 @@ body {
     font-weight: bold;
     font-size: 44px;
     color: #fff;
-    /* білий текст */
     text-shadow:
         -2px -2px 0 var(--accent),
-        /* помаранчева тінь угору-ліворуч */
         2px 2px 0 #000;
-    /* чорна тінь вниз-праворуч */
     line-height: 1;
 }
 
@@ -300,7 +297,6 @@ button:active {
     background: #f5f5f5;
     font-weight: 600;
     border-bottom: 1px solid #ccc;
-    /* тонка сіра лінія під усім thead */
 }
 
 .clean-table th,
@@ -314,7 +310,6 @@ button:active {
 .clean-table th.active {
     background: #f0f0f0;
     border-bottom: 3px solid #000;
-    /* товста чорна лінія під активним */
 }
 
 .clean-table tbody tr:nth-child(even) {
@@ -328,7 +323,6 @@ button:active {
 .clean-table th.active {
     background: #f0f0f0;
     border-bottom: 2px solid #000;
-    /* чорна лінія */
 }
 
 /* Sorting arrows */
@@ -340,7 +334,6 @@ button:active {
     top: 50%;
     transform: translateY(-50%);
     color: #000;
-    /* чорна стрілка */
 }
 
 .clean-table th.sort-desc::after {
@@ -351,7 +344,6 @@ button:active {
     top: 50%;
     transform: translateY(-50%);
     color: #000;
-    /* чорна стрілка */
 }
 
 
@@ -550,15 +542,15 @@ button:active {
 .teacher-popup {
     max-width: 700px;
     border-radius: 0px;
-    overflow: hidden; /* щоб header і тіло мали однакові кути */
+    overflow: hidden; 
     background: var(--white);
     box-shadow: 0 16px 48px rgba(0,0,0,.25);
-    padding: 0; /* прибрали падінги */
+    padding: 0; 
     display: flex;
     flex-direction: column;
 }
 
-/* Header із заголовком і хрестиком */
+
 .popup-header {
     display: flex;
     align-items: center;
@@ -583,12 +575,12 @@ button:active {
     line-height: 1;
 }
 
-/* Основна частина */
+
 .teacher-card-details {
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    padding: 20px 24px; /* падінги тепер тут */
+    padding: 20px 24px;
 }
 
 .teacher-card-details .details-avatar.large {
@@ -609,7 +601,7 @@ button:active {
     flex: 1;
 }
 
-/* Рядок з ім'ям і зіркою */
+
 .details-header {
     display: flex;
     align-items: center;
@@ -624,7 +616,7 @@ button:active {
     margin: 0;
 }
 
-/* Спеціальність і решта інфи */
+
 .teacher-card-details .details-specialty {
     font-weight: 600;
     margin-bottom: 6px;
@@ -644,7 +636,7 @@ button:active {
     text-decoration: none;
 }
 
-/* Зірочка */
+
 .fav-toggle {
     font-size: 24px;
     background: none;
@@ -658,28 +650,28 @@ button:active {
 }
 
 .fav-toggle[aria-pressed="true"] {
-    color: gold; /* заливка */
+    color: gold; 
 }
 
 .fav-toggle[aria-pressed="false"] {
-    color: transparent;               /* порожня */
-    -webkit-text-stroke: 1px #888;    /* сірий контур */
+    color: transparent;            
+    -webkit-text-stroke: 1px #888;   
     text-stroke: 1px #888;
 }
 
 /* Notes */
 .teacher-extra {
     border-top: 1px solid var(--line);
-    padding: 12px 24px; /* падінги для блоку нотаток */
+    padding: 12px 24px; 
     font-size: 14px;
     line-height: 1.5;
     color: var(--ink);
 }
 
-/* Для Teacher Info popup */
+
 .teacher-popup .popup-header .close {
-    position: static;   /* щоб кнопка йшла по flex */
-    margin-left: auto;  /* відсуває хрестик вправо */
+    position: static;   
+    margin-left: auto;  
     font-size: 22px;
     color: #fff;
     background: none;
