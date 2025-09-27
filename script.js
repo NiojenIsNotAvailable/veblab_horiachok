@@ -124,112 +124,114 @@ document.addEventListener("DOMContentLoaded", () => {
         { first: "Carlos", last: "Mendez", specialty: "Mathematics", country: "Mexico", age: 41, gender: "Male", email: "carlos.mendez@example.com", phone: "+52 55 1234 5678", notes: "Lorem ipsum dolor sit amet." },
         { first: "Fatima", last: "Hassan", specialty: "English", country: "Egypt", age: 34, gender: "Female", email: "fatima.hassan@example.com", phone: "+20 100 234 5678", notes: "Lorem ipsum dolor sit amet." }
     ];
-    
+
     teachers.forEach((t, i) => t.id = `t${i}`);
 
-    // ================= ЛР2 ФУНКЦІЇ =================
-    function formatUsers(users) {
-        const courses = ["Mathematics", "Physics", "English", "Computer Science", "Dancing", "Chess", "Biology", "Chemistry", "Law", "Art", "Medicine", "Statistics"];
-        return users.map((u, i) => ({
-            id: u.id || `u${i}`,
-            full_name: `${u.first} ${u.last}`,
-            gender: u.gender,
-            country: u.country,
-            age: u.age,
-            email: u.email,
-            phone: u.phone,
-            notes: u.notes || "",
-            favorite: false,
-            course: courses[Math.floor(Math.random() * courses.length)],
-            bg_color: `#${Math.floor(Math.random() * 16777215).toString(16)}`
-        }));
-    }
-   function validateUser(u) {
-    const startsWithCapital = str => typeof str === "string" && /^[A-ZА-ЯІЇЄ]/.test(str);
 
-    return (
-        // 1. uppercase
-        startsWithCapital(u.full_name) &&
-        startsWithCapital(u.gender) &&
-        (u.note == null || startsWithCapital(u.note)) && // if empty
-        startsWithCapital(u.state) &&
-        startsWithCapital(u.city) &&
-        startsWithCapital(u.country) &&
+    // ==== ADD TEACHER FORM (robust) ====
+    const addForm =
+        document.getElementById("addTeacherForm") ||
+        (addPopup ? addPopup.querySelector("form") : null);
 
-        // 2. Age
-        typeof u.age === "number" && u.age > 0 && u.age < 120 &&
+    if (addForm) {
+        addForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const fd = new FormData(addForm);
 
-        // 3. Email
-        /\S+@\S+\.\S+/.test(u.email) &&
+            // вік із дати народження (якщо вказана)
+            const birth = fd.get("birth") || "";
+            let age = "";
+            if (birth) {
+                const d = new Date(birth);
+                age = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
+            }
 
-        // 4. phone
-        /^\+?[0-9\s-]{6,20}$/.test(u.phone || "")
-    );
-}
+            const t = {
+                first: fd.get("first")?.trim() || "",
+                last: fd.get("last")?.trim() || "",
+                specialty: fd.get("specialty") || "",
+                country: fd.get("country") || "",
+                city: fd.get("city") || "",
+                email: fd.get("email") || "",
+                phone: fd.get("phone") || "",
+                birth,
+                age,
+                gender: fd.get("gender") || "",
+                bgcolor: fd.get("bgcolor") || "#fff",
+                notes: fd.get("notes") || "Lorem ipsum dolor sit amet."
+            };
 
-    function filterUsers(params = {}) {
-        return teachers.filter(u =>
-            (!params.country || u.country === params.country) &&
-            (!params.age || u.age === params.age) &&
-            (!params.gender || u.gender === params.gender) &&
-            (params.favorite === undefined || u.favorite === params.favorite)
-        );
-    }
-    function sortUsers(key, order = "asc") {
-        return [...teachers].sort((a, b) => {
-            let A = a[key], B = b[key];
-            if (typeof A === "string") A = A.toLowerCase();
-            if (typeof B === "string") B = B.toLowerCase();
-            if (A < B) return order === "asc" ? -1 : 1;
-            if (A > B) return order === "asc" ? 1 : -1;
-            return 0;
+            t.id = `t${teachers.length}`;
+            teachers.push(t);
+
+            // якщо хочеш зберегти активні фільтри — викликай applyFilters(), інакше повний ререндер:
+            if (typeof applyFilters === "function") applyFilters();
+            else renderTeachers();
+
+            addForm.reset();
+            if (addPopup) addPopup.classList.add("hidden");
         });
     }
-    function findUser(key, value) {
-        return teachers.find(u => String(u[key]).toLowerCase() === String(value).toLowerCase());
-    }
-    function percentage(predicate) {
-        const total = teachers.length;
-        const matched = teachers.filter(predicate).length;
-        return total === 0 ? 0 : Math.round((matched / total) * 100);
-    }
 
 
-    
+
+
     // ----- RENDER -----
     function renderTeachers(list = teachers) {
         const grid = document.querySelector(".cards-grid");
         const tbody = document.getElementById("statsBody");
         if (!grid || !tbody) return;
+
         grid.innerHTML = "";
         tbody.innerHTML = "";
+
         list.forEach(t => {
             const article = document.createElement("article");
             article.className = "teacher-card";
+
+            // фон картки з поля bgcolor
+            if (t.bgcolor) {
+                article.style.backgroundColor = t.bgcolor;
+            }
+
             const photo = getTeacherPhoto(t.first, t.last, t.photo);
             article.appendChild(createAvatarWrap(photo, `${t.first} ${t.last}`, `${t.first[0]}.${t.last[0]}`));
+
             const name = document.createElement("h3");
             name.className = "name";
             name.innerHTML = `<span>${t.first}</span> <span>${t.last}</span>`;
+
             const meta = document.createElement("div");
             meta.className = "meta";
             meta.innerHTML = `<div>${t.specialty || "-"}</div><div>${t.country || "-"}</div>`;
+
             article.appendChild(name);
             article.appendChild(meta);
             grid.appendChild(article);
+
             article.addEventListener("click", () => openTeacherPopup(t, photo));
 
             const row = document.createElement("tr");
-            row.innerHTML = `<td>${t.first} ${t.last}</td><td>${t.specialty || "-"}</td><td>${t.age || "-"}</td><td>${t.gender || "-"}</td><td>${t.country || "-"}</td>`;
+            row.innerHTML = `
+            <td>${t.first} ${t.last}</td>
+            <td>${t.specialty || "-"}</td>
+            <td>${t.age || "-"}</td>
+            <td>${t.gender || "-"}</td>
+            <td>${t.country || "-"}</td>
+        `;
             tbody.appendChild(row);
         });
     }
 
+
     function openTeacherPopup(t, photo) {
         detailsAvatar.innerHTML = "";
+
+        // аватар
         if (photo) {
             const img = document.createElement("img");
-            img.src = photo; img.alt = `${t.first} ${t.last}`;
+            img.src = photo;
+            img.alt = `${t.first} ${t.last}`;
             detailsAvatar.appendChild(img);
         } else {
             const div = document.createElement("div");
@@ -237,18 +239,49 @@ document.addEventListener("DOMContentLoaded", () => {
             div.textContent = `${t.first[0]}.${t.last[0]}`;
             detailsAvatar.appendChild(div);
         }
+
+        // текстові поля
         detailsName.textContent = `${t.first} ${t.last}`;
         detailsSpecialty.textContent = t.specialty || "";
-        detailsCountry.textContent = t.country ? `Country: ${t.country}` : "";
+        detailsCountry.textContent = [t.country, t.city].filter(Boolean).join(", ");
         detailsAge.textContent = t.age ? `Age: ${t.age}` : "";
         detailsGender.textContent = t.gender ? `Gender: ${t.gender}` : "";
         detailsEmail.innerHTML = t.email ? `Email: <a href="mailto:${t.email}">${t.email}</a>` : "";
-        detailsPhone.textContent = t.phone ? `Phone: ${t.phone}` : "";
+        detailsPhone.innerHTML = t.phone ? `Phone: <a href="tel:${t.phone}">${t.phone}</a>` : "";
         detailsNotes.textContent = t.notes || "";
+
+        // ⭐️ тут підсвічуємо фон попапа за полем bgcolor
+        teacherPopup.querySelector(".popup-content").style.backgroundColor = t.bgcolor || "#fff";
+
         favToggle.setAttribute("aria-pressed", favorites.has(t.id) ? "true" : "false");
         favToggle.onclick = () => toggleFavorite(t.id, t, photo);
+
         teacherPopup.classList.remove("hidden");
     }
+
+
+
+    // ====== OPEN/CLOSE ADD TEACHER POPUP ======
+    const openAddTop = document.getElementById("openAddTeacher");
+    const openAddFooter = document.getElementById("openAddTeacherFooter");
+    const closeAdd = addPopup.querySelector(".close");
+
+    if (openAddTop) {
+        openAddTop.addEventListener("click", () => addPopup.classList.remove("hidden"));
+    }
+    if (openAddFooter) {
+        openAddFooter.addEventListener("click", () => addPopup.classList.remove("hidden"));
+    }
+    if (closeAdd) {
+        closeAdd.addEventListener("click", () => addPopup.classList.add("hidden"));
+    }
+
+    addPopup.addEventListener("click", (e) => {
+        if (e.target === addPopup) {
+            addPopup.classList.add("hidden");
+        }
+    });
+
 
     // ====== ФІЛЬТРИ ======
     const [ageSelect, regionSelect, sexSelect] = document.querySelectorAll(".filters select");
